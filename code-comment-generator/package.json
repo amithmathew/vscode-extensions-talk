@@ -1,0 +1,68 @@
+{
+  "name": "code-comment-generator",
+  "displayName": "Code Comment Generator",
+  "description": "Generates comments for selected code",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "code-comment-generator.helloWorld",
+        "title": "Hello World"
+      },
+      {
+        "command": "code-comment-generator.addComment",
+        "title": "Code Comment Generator: Add Comment"
+      }
+    ],
+    "configuration": {
+      "title": "Amith's Code Comment Generator",
+      "properties": {
+        "code-comment-generator.systemPrompt": {
+          "type": "string",
+          "title": "System prompt for the comment generator",
+          "default": "Given the selected text, return a comment describing the text, in haiku format. Your response will be pasted into the code verbatim, so make sure to include the comment prefixes for the given language. DO NOT put the comment in markdown code fences. DO NOT add any additional text like 'Here is the comment' or similar. Respond ONLY with the comment. DO NOT put the comment in markdown code fences. If you cannot reasonably guess the language, assume it's python unless it is obviously not.",
+          "description": "The system prompt for calling the LLM.",
+          "editPresentation": "multilineText"
+        }
+      }
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "code-comment-generator.addComment",
+          "when": "editorHasSelection"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.9",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.95.0",
+    "@typescript-eslint/eslint-plugin": "^8.10.0",
+    "@typescript-eslint/parser": "^8.7.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.13.0",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@google-cloud/vertexai": "^1.9.0"
+  }
+}
